@@ -1,0 +1,5 @@
+{
+  "MsBuild": {
+      "MSBuildSdksPath": "c:/Users/fredr/.vscode/extensions/ms-dotnettools.csharp-1.23.8/.omnisharp/1.37.5/.msbuild/Current/Bin"
+  }
+}
