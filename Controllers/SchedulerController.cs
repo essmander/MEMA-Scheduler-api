@@ -1,4 +1,3 @@
-
 using System.Data.SqlClient;
 using MEMA_Planning_Schedule.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -13,27 +12,46 @@ namespace MEMA_Planning_Schedule.Controllers
     public class SchedulerController : ControllerBase
     {
 
-        private readonly IConfiguration _configuration;
+        //private readonly IConfiguration _configuration;
         private readonly IBookingDataAccess _bookingDataAccess;
 
-        public SchedulerController(IConfiguration configuration, IBookingDataAccess bookingDataAccess)
+        public SchedulerController(IBookingDataAccess bookingDataAccess)
         {
-            _configuration = configuration;
             _bookingDataAccess = bookingDataAccess;
         }
 
-       [HttpGet]
-       public async Task<IActionResult> Get()
-       {
-            string sql = "SELECT TOP 10 * FROM Employe";
+        // [HttpGet]
+        // public async Task<IActionResult> Get()
+        // {
+        //     string sql = "SELECT TOP 10 * FROM Employe";
 
-            using var connection = new SqlConnection(_configuration.GetConnectionString("MEMA"));
-            var orderDetails = await connection.QueryAsync<User>(sql);
-            return Ok(orderDetails);
-       }
+        //     using var connection = new SqlConnection(_configuration.GetConnectionString("MEMA"));
+        //     var orderDetails = await connection.QueryAsync<User>(sql);
+        //     return Ok(orderDetails);
+        // }
 
-       [HttpGet]
-       [Route("Bookings")]
-       public async Task<IActionResult> GetAllBookings() => Ok(await _bookingDataAccess.GetAllBookings());
+        [HttpGet]
+        [Route("Bookings")]
+        public async Task<IActionResult> Get() => Ok(await _bookingDataAccess.GetAllBookings());
+
+        [HttpGet]
+        [Route("Bookings/{id}")]
+        public async Task<IActionResult> GetAllBookingsByUserId(int id) => Ok(await _bookingDataAccess.GetBookingsByUserId(id));
+
+        [HttpDelete]
+        [Route("Bookings/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deleted = await _bookingDataAccess.DeleteBooking(id);
+            return deleted ? Ok() : NotFound();
+        }
+
+        [HttpPost]
+        [Route("Booking")]
+        public IActionResult Post([FromBody]Booking booking) 
+        {
+            var created = _bookingDataAccess.CreateBooking(booking);
+            return created == 1 ? Ok() : NotFound();
+        }
     }
 }
