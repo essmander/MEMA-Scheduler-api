@@ -50,13 +50,18 @@ namespace MEMA_Planning_Schedule
             return isSuccess;
         }
 
-        public long CreateBooking(Booking booking)
+        public async Task<int> CreateBooking(Booking booking)
         {
             using var connection = new SqlConnection(_configuration.GetConnectionString("MEMA"));
-            var identety = connection.Insert(booking);
+            var identety = await connection.InsertAsync(booking);
             return identety;
         }
 
-        
+        public async Task<bool> UpdateBooking(Booking booking)
+        {
+            using var connection = new SqlConnection(_configuration.GetConnectionString("MEMA"));
+            var isSuccess = await connection.UpdateAsync(booking);
+            return isSuccess;
+        }      
     }
 }

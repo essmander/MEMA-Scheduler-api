@@ -48,10 +48,15 @@ namespace MEMA_Planning_Schedule.Controllers
 
         [HttpPost]
         [Route("Booking")]
-        public IActionResult Post([FromBody]Booking booking) 
+        public async Task<IActionResult> Post([FromBody]Booking booking) 
         {
-            var created = _bookingDataAccess.CreateBooking(booking);
+            var created = await _bookingDataAccess.CreateBooking(booking);
             return created == 1 ? Ok() : NotFound();
         }
+
+        [HttpPatch]
+        [Route("Booking")]
+        public async  Task<IActionResult> Patch([FromBody]Booking booking) => Ok(await _bookingDataAccess.UpdateBooking(booking));
+     
     }
 }
