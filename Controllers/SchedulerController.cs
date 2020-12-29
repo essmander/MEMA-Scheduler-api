@@ -1,14 +1,11 @@
-using System.Data.SqlClient;
 using MEMA_Planning_Schedule.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Dapper;
 using System.Threading.Tasks;
 
 namespace MEMA_Planning_Schedule.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/bookings")]
     public class SchedulerController : ControllerBase
     {
 
@@ -20,26 +17,13 @@ namespace MEMA_Planning_Schedule.Controllers
             _bookingDataAccess = bookingDataAccess;
         }
 
-        // [HttpGet]
-        // public async Task<IActionResult> Get()
-        // {
-        //     string sql = "SELECT TOP 10 * FROM Employe";
-
-        //     using var connection = new SqlConnection(_configuration.GetConnectionString("MEMA"));
-        //     var orderDetails = await connection.QueryAsync<User>(sql);
-        //     return Ok(orderDetails);
-        // }
-
         [HttpGet]
-        [Route("Bookings")]
         public async Task<IActionResult> Get() => Ok(await _bookingDataAccess.GetAllBookings());
 
-        [HttpGet]
-        [Route("Bookings/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetAllBookingsByUserId(int id) => Ok(await _bookingDataAccess.GetBookingsByUserId(id));
 
-        [HttpDelete]
-        [Route("Bookings/{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var deleted = await _bookingDataAccess.DeleteBooking(id);
@@ -47,16 +31,14 @@ namespace MEMA_Planning_Schedule.Controllers
         }
 
         [HttpPost]
-        [Route("Booking")]
-        public async Task<IActionResult> Post([FromBody]Booking booking) 
+        public async Task<IActionResult> Create([FromBody]Booking booking) 
         {
             var created = await _bookingDataAccess.CreateBooking(booking);
             return created == 1 ? Ok() : NotFound();
         }
 
         [HttpPatch]
-        [Route("Booking")]
-        public async  Task<IActionResult> Patch([FromBody]Booking booking) => Ok(await _bookingDataAccess.UpdateBooking(booking));
+        public async  Task<IActionResult> Update([FromBody]Booking booking) => Ok(await _bookingDataAccess.UpdateBooking(booking));
      
     }
 }
