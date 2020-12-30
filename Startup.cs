@@ -83,7 +83,13 @@ namespace MEMA_Planning_Schedule
                         options.Password.RequireNonAlphanumeric = false;
                     }
                 })
-                .AddEntityFrameworkStores<IdentityDbContext>();
+                .AddEntityFrameworkStores<IdentityDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.LoginPath = "/Account/Login";
+            });
 
             var identetyServerBuilder = services.AddIdentityServer();
 

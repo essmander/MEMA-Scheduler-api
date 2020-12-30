@@ -15601,6 +15601,17 @@
     "CSharpLanguageVersion": 900
   },
   "RootNamespace": "MEMA_Planning_Schedule",
-  "Documents": [],
+  "Documents": [
+    {
+      "FilePath": "c:\\Users\\fredr\\Prodjects\\MEMA\\MEMA-Planning-Schedule\\Pages\\Account\\Login.cshtml",
+      "TargetPath": "Pages\\Account\\Login.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\fredr\\Prodjects\\MEMA\\MEMA-Planning-Schedule\\Pages\\_Viewimports.cshtml",
+      "TargetPath": "Pages\\_Viewimports.cshtml",
+      "FileKind": "mvc"
+    }
+  ],
   "SerializationFormat": "0.2"
 }

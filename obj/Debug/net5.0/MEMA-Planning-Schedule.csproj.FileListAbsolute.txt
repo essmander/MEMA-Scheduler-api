@@ -58,3 +58,14 @@ C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\bin\Debug\net5.0\Microsoft.
 C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\bin\Debug\net5.0\MEMA-Planning-Schedule.Views.dll
+C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\bin\Debug\net5.0\MEMA-Planning-Schedule.Views.pdb
+C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\obj\Debug\net5.0\MEMA-Planning-Schedule.RazorAssemblyInfo.cache
+C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\obj\Debug\net5.0\MEMA-Planning-Schedule.RazorAssemblyInfo.cs
+C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\obj\Debug\net5.0\MEMA-Planning-Schedule.TagHelpers.input.cache
+C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\obj\Debug\net5.0\MEMA-Planning-Schedule.TagHelpers.output.cache
+C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\obj\Debug\net5.0\MEMA-Planning-Schedule.RazorCoreGenerate.cache
+C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\obj\Debug\net5.0\Razor\Pages\Account\Login.cshtml.g.cs
+C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\obj\Debug\net5.0\Razor\Pages\_ViewImports.cshtml.g.cs
+C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\obj\Debug\net5.0\MEMA-Planning-Schedule.RazorTargetAssemblyInfo.cs
+C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\obj\Debug\net5.0\MEMA-Planning-Schedule.Views.pdb
