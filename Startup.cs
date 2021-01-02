@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using System.Security.Claims;
+using IdentityServer4;
+using IdentityServer4.AccessTokenValidation;
 using IdentityServer4.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -48,6 +52,9 @@ namespace MEMA_Planning_Schedule
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MEMA_Planning_Schedule v1"));
+
+                
+
             }
 
             app.UseHttpsRedirection();
@@ -58,7 +65,7 @@ namespace MEMA_Planning_Schedule
 
             app.UseIdentityServer();
 
-           // app.UseAuthorization();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
@@ -94,15 +101,25 @@ namespace MEMA_Planning_Schedule
             var identetyServerBuilder = services.AddIdentityServer();
 
             identetyServerBuilder.AddAspNetIdentity<IdentityUser>();
-                
 
-            if(_env.IsDevelopment())
+
+            if (_env.IsDevelopment())
             {
                 identetyServerBuilder.AddInMemoryIdentityResources(new IdentityResource[]
                 {
                     new IdentityResources.OpenId(),
                     new IdentityResources.Profile()
                 });
+
+                identetyServerBuilder.AddInMemoryApiResources(Config.GetApiResources());
+               
+
+                identetyServerBuilder.AddInMemoryApiScopes(new ApiScope[]
+                {
+                    new ApiScope(IdentityServerConstants.LocalApi.ScopeName),
+
+                });
+
 
                 identetyServerBuilder.AddInMemoryClients(new Client[]
                 {
@@ -115,17 +132,70 @@ namespace MEMA_Planning_Schedule
                         PostLogoutRedirectUris = new [] { "http://localhost:3000" },
                         AllowedCorsOrigins = new [] { "http://localhost:3000" },
 
+                        AllowedScopes = new []
+                        {
+                            IdentityServerConstants.StandardScopes.OpenId,
+                            IdentityServerConstants.StandardScopes.Profile,
+                            IdentityServerConstants.LocalApi.ScopeName,
+                        },
+
                         RequirePkce = true,
                         AllowAccessTokensViaBrowser = true,
                         RequireConsent = false,
                         RequireClientSecret = false,
 
 
+                    },
+                    new Client
+                    {
+                        ClientId = "postman-api",
+                        ClientName = "Postman Test Client",
+                        AllowedGrantTypes = GrantTypes.Code,
+                        AllowAccessTokensViaBrowser = true,
+                        RequireConsent = false,
+                        RedirectUris = {"https://www.getpostman.com/oauth2/callback"},
+                        PostLogoutRedirectUris = {"htts://www.getpostman.com"},
+                        AllowedCorsOrigins = {"htts://www.getpostman.com"},
+                        EnableLocalLogin = true,
+                        RequirePkce = false,
+                        AllowedScopes =
+                        {
+                            IdentityServerConstants.StandardScopes.OpenId,
+                            IdentityServerConstants.StandardScopes.Profile,
+                            IdentityServerConstants.StandardScopes.Email,
+                            IdentityServerConstants.LocalApi.ScopeName,
+                            "postman_api"
+                        },
+                        ClientSecrets = new List<Secret>() { new Secret("SomeValue".Sha256()) }
                     }
                 });
-
+                identetyServerBuilder.AddInMemoryApiScopes(Config.GetApiScopes());
                 identetyServerBuilder.AddDeveloperSigningCredential();
             }
+
+            services.AddLocalApiAuthentication();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(MemaConst.Policies.Mod, policy =>
+                {
+                    var is4Policy = options.GetPolicy(IdentityServerConstants.LocalApi.PolicyName);
+                    policy.Combine(is4Policy);
+                    policy.RequireClaim(ClaimTypes.Role, MemaConst.Roles.Mod);
+                });
+            });
+        }
+    }
+
+    public struct MemaConst
+    {
+        public struct Policies
+        {
+            public const string Mod = nameof(Mod);
+        }
+        public struct Roles
+        {
+            public const string Mod = nameof(Mod);
         }
     }
 }

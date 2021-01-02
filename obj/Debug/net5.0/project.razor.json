@@ -15608,8 +15608,8 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\fredr\\Prodjects\\MEMA\\MEMA-Planning-Schedule\\Pages\\_Viewimports.cshtml",
-      "TargetPath": "Pages\\_Viewimports.cshtml",
+      "FilePath": "c:\\Users\\fredr\\Prodjects\\MEMA\\MEMA-Planning-Schedule\\Pages\\_ViewImports.cshtml",
+      "TargetPath": "Pages\\_ViewImports.cshtml",
       "FileKind": "mvc"
     }
   ],

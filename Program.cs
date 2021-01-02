@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -24,6 +25,10 @@ namespace MEMA_Planning_Schedule
 
                  var user = new IdentityUser("test");
                  userMgr.CreateAsync(user, "password").GetAwaiter().GetResult();
+
+                 var mod = new IdentityUser("mod");
+                 userMgr.CreateAsync(mod, "password").GetAwaiter().GetResult();
+                 userMgr.AddClaimAsync(mod, new Claim(ClaimTypes.Role, MemaConst.Roles.Mod)).GetAwaiter().GetResult();
             }
 
             host.Run();

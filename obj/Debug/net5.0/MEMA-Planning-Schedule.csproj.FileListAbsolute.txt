@@ -69,3 +69,6 @@ C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\obj\Debug\net5.0\Razor\Page
 C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\obj\Debug\net5.0\Razor\Pages\_ViewImports.cshtml.g.cs
 C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\obj\Debug\net5.0\MEMA-Planning-Schedule.RazorTargetAssemblyInfo.cs
 C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\obj\Debug\net5.0\MEMA-Planning-Schedule.Views.pdb
+C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\bin\Debug\net5.0\IdentityModel.AspNetCore.OAuth2Introspection.dll
+C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\bin\Debug\net5.0\IdentityServer4.AccessTokenValidation.dll
+C:\Users\fredr\Prodjects\MEMA\MEMA-Planning-Schedule\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
