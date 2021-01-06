@@ -42,6 +42,10 @@ namespace MEMA_Planning_Schedule
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MEMA_Planning_Schedule", Version = "v1" });
             });
 
+            services.AddCors(options => options.AddPolicy(MemaConst.Policies.AllCors, build => build.AllowAnyHeader()
+                                                                        .AllowAnyOrigin()
+                                                                        .AllowAnyMethod()));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +64,8 @@ namespace MEMA_Planning_Schedule
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(MemaConst.Policies.AllCors);
 
             app.UseAuthentication();
 
@@ -192,6 +198,7 @@ namespace MEMA_Planning_Schedule
         public struct Policies
         {
             public const string Mod = nameof(Mod);
+            public const string AllCors = nameof(AllCors);
         }
         public struct Roles
         {

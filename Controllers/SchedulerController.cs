@@ -20,15 +20,15 @@ namespace MEMA_Planning_Schedule.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> Get() => Ok(await _bookingDataAccess.GetAllBookings());
 
         [HttpGet("{id}")]
-        [Authorize]
+        // [Authorize]
         public async Task<IActionResult> GetAllBookingsByUserId(int id) => Ok(await _bookingDataAccess.GetBookingsByUserId(id));
 
         [HttpDelete("{id}")]
-        [Authorize]
+       // [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             var deleted = await _bookingDataAccess.DeleteBooking(id);
@@ -36,15 +36,15 @@ namespace MEMA_Planning_Schedule.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Create([FromBody]Booking booking) 
         {
-            var created = await _bookingDataAccess.CreateBooking(booking);
-            return created == 1 ? Ok() : NotFound();
+            await _bookingDataAccess.CreateBooking(booking);
+            return Ok();
         }
 
         [HttpPatch]
-        [Authorize]
+       // [Authorize]
         public async  Task<IActionResult> Update([FromBody]Booking booking) => Ok(await _bookingDataAccess.UpdateBooking(booking));
      
     }
