@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using IdentityServer4;
-using IdentityServer4.AccessTokenValidation;
 using IdentityServer4.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,8 +30,6 @@ namespace MEMA_Planning_Schedule
         {
             services.AddScoped<IBookingDataAccess, BookingDataAccess>();
 
-            AddIdentity(services);
-
             services.AddControllers();
 
             services.AddRazorPages();
@@ -42,10 +39,10 @@ namespace MEMA_Planning_Schedule
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MEMA_Planning_Schedule", Version = "v1" });
             });
 
-            services.AddCors(options => options.AddPolicy(MemaConst.Policies.AllCors, build => build.AllowAnyHeader()
+            services.AddCors(options => options.AddPolicy(MemaConst.Policies.All, build => build.AllowAnyHeader()
                                                                         .AllowAnyOrigin()
                                                                         .AllowAnyMethod()));
-
+            AddIdentity(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,7 +54,7 @@ namespace MEMA_Planning_Schedule
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MEMA_Planning_Schedule v1"));
 
-                
+
 
             }
 
@@ -65,11 +62,10 @@ namespace MEMA_Planning_Schedule
 
             app.UseRouting();
 
-            app.UseCors(MemaConst.Policies.AllCors);
-
-            app.UseAuthentication();
+            app.UseCors(MemaConst.Policies.All);
 
             app.UseIdentityServer();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
@@ -102,6 +98,7 @@ namespace MEMA_Planning_Schedule
             services.ConfigureApplicationCookie(config =>
             {
                 config.LoginPath = "/Account/Login";
+                config.LogoutPath = "/api/auth/logout";
             });
 
             var identetyServerBuilder = services.AddIdentityServer();
@@ -114,11 +111,11 @@ namespace MEMA_Planning_Schedule
                 identetyServerBuilder.AddInMemoryIdentityResources(new IdentityResource[]
                 {
                     new IdentityResources.OpenId(),
-                    new IdentityResources.Profile()
+                    new IdentityResources.Profile(),
                 });
 
-                identetyServerBuilder.AddInMemoryApiResources(Config.GetApiResources());
-               
+                //identetyServerBuilder.AddInMemoryApiResources(Config.GetApiResources());
+
 
                 identetyServerBuilder.AddInMemoryApiScopes(new ApiScope[]
                 {
@@ -136,7 +133,7 @@ namespace MEMA_Planning_Schedule
 
                         RedirectUris = new [] { "http://localhost:3000" },
                         PostLogoutRedirectUris = new [] { "http://localhost:3000" },
-                        AllowedCorsOrigins = new [] { "http://localhost:3000" },
+                        AllowedCorsOrigins = { "http://localhost:3000" },
 
                         AllowedScopes = new []
                         {
@@ -152,30 +149,30 @@ namespace MEMA_Planning_Schedule
 
 
                     },
-                    new Client
-                    {
-                        ClientId = "postman-api",
-                        ClientName = "Postman Test Client",
-                        AllowedGrantTypes = GrantTypes.Code,
-                        AllowAccessTokensViaBrowser = true,
-                        RequireConsent = false,
-                        RedirectUris = {"https://www.getpostman.com/oauth2/callback"},
-                        PostLogoutRedirectUris = {"htts://www.getpostman.com"},
-                        AllowedCorsOrigins = {"htts://www.getpostman.com"},
-                        EnableLocalLogin = true,
-                        RequirePkce = false,
-                        AllowedScopes =
-                        {
-                            IdentityServerConstants.StandardScopes.OpenId,
-                            IdentityServerConstants.StandardScopes.Profile,
-                            IdentityServerConstants.StandardScopes.Email,
-                            IdentityServerConstants.LocalApi.ScopeName,
-                            "postman_api"
-                        },
-                        ClientSecrets = new List<Secret>() { new Secret("SomeValue".Sha256()) }
-                    }
+                    // new Client
+                    // {
+                    //     ClientId = "postman-api",
+                    //     ClientName = "Postman Test Client",
+                    //     AllowedGrantTypes = GrantTypes.Code,
+                    //     AllowAccessTokensViaBrowser = true,
+                    //     RequireConsent = false,
+                    //     RedirectUris = {"https://www.getpostman.com/oauth2/callback"},
+                    //     PostLogoutRedirectUris = {"htts://www.getpostman.com"},
+                    //     AllowedCorsOrigins = {"htts://www.getpostman.com"},
+                    //     EnableLocalLogin = true,
+                    //     RequirePkce = false,
+                    //     AllowedScopes =
+                    //     {
+                    //         IdentityServerConstants.StandardScopes.OpenId,
+                    //         IdentityServerConstants.StandardScopes.Profile,
+                    //         IdentityServerConstants.StandardScopes.Email,
+                    //         IdentityServerConstants.LocalApi.ScopeName,
+                    //         "postman_api"
+                    //     },
+                    //     ClientSecrets = new List<Secret>() { new Secret("SomeValue".Sha256()) }
+                    // }
                 });
-                identetyServerBuilder.AddInMemoryApiScopes(Config.GetApiScopes());
+                // identetyServerBuilder.AddInMemoryApiScopes(Config.GetApiScopes());
                 identetyServerBuilder.AddDeveloperSigningCredential();
             }
 
@@ -183,12 +180,18 @@ namespace MEMA_Planning_Schedule
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(MemaConst.Policies.Mod, policy =>
-                {
-                    var is4Policy = options.GetPolicy(IdentityServerConstants.LocalApi.PolicyName);
-                    policy.Combine(is4Policy);
-                    policy.RequireClaim(ClaimTypes.Role, MemaConst.Roles.Mod);
-                });
+                // options.AddPolicy(MemaConst.Policies.Mod, policy =>
+                // {
+                //     var is4Policy = options.GetPolicy(IdentityServerConstants.LocalApi.PolicyName);
+                //     policy.Combine(is4Policy);
+                //     policy.RequireClaim(MemaConst.Claims.Role, MemaConst.Roles.Mod);
+                // });
+                 options.AddPolicy(MemaConst.Policies.Mod, policy => policy
+                    .RequireAuthenticatedUser()
+                    .RequireClaim(MemaConst.Claims.Role,
+                        MemaConst.Roles.Mod,
+                        MemaConst.Roles.Mod)
+                );
             });
         }
     }
@@ -198,7 +201,12 @@ namespace MEMA_Planning_Schedule
         public struct Policies
         {
             public const string Mod = nameof(Mod);
-            public const string AllCors = nameof(AllCors);
+            public const string All = nameof(All);
+        }
+
+        public struct Claims
+        {
+            public const string Role = nameof(Role);
         }
         public struct Roles
         {

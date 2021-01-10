@@ -28,7 +28,10 @@ namespace MEMA_Planning_Schedule
 
                  var mod = new IdentityUser("mod");
                  userMgr.CreateAsync(mod, "password").GetAwaiter().GetResult();
-                 userMgr.AddClaimAsync(mod, new Claim(ClaimTypes.Role, MemaConst.Roles.Mod)).GetAwaiter().GetResult();
+                 userMgr.AddClaimAsync(mod, 
+                    new Claim(MemaConst.Claims.Role,
+                        MemaConst.Roles.Mod)
+                    ).GetAwaiter().GetResult();
             }
 
             host.Run();

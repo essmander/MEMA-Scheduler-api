@@ -23,6 +23,11 @@ namespace MEMA_Planning_Schedule.Controllers
         // [Authorize]
         public async Task<IActionResult> Get() => Ok(await _bookingDataAccess.GetAllBookings());
 
+        [HttpGet("test")]
+        [Authorize(Policy =  IdentityServerConstants.LocalApi.PolicyName)]
+        // [Authorize]
+        public string GetTest() => "TEST Worked";
+
         [HttpGet("{workerId}/day")]
         // [Authorize]
         public async Task<IActionResult> GetBookigsThisDay(int workerId) => Ok(await _bookingDataAccess.GetBookingsThisDay(workerId));

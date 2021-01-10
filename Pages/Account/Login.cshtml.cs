@@ -34,7 +34,7 @@ namespace  MEMA_Planning_Schedule.Pages.Account
         public class LoginForm
         {
             [Required]
-            public string ReturnUrl { get; set; }
+            public string ReturnUrl { get; set; } = "http://localhost:3000/";
             [Required]
             public string Username { get; set; }
             [Required]
