@@ -112,6 +112,7 @@ namespace MEMA_Planning_Schedule
                 {
                     new IdentityResources.OpenId(),
                     new IdentityResources.Profile(),
+                    new IdentityResource(MemaConst.IdentityResources.RoleScope, new [] { MemaConst.Claims.Role }),
                 });
 
                 //identetyServerBuilder.AddInMemoryApiResources(Config.GetApiResources());
@@ -119,7 +120,8 @@ namespace MEMA_Planning_Schedule
 
                 identetyServerBuilder.AddInMemoryApiScopes(new ApiScope[]
                 {
-                    new ApiScope(IdentityServerConstants.LocalApi.ScopeName),
+                    new ApiScope(IdentityServerConstants.LocalApi.ScopeName,
+                    new [] {MemaConst.Claims.Role}),
 
                 });
 
@@ -140,6 +142,7 @@ namespace MEMA_Planning_Schedule
                             IdentityServerConstants.StandardScopes.OpenId,
                             IdentityServerConstants.StandardScopes.Profile,
                             IdentityServerConstants.LocalApi.ScopeName,
+                            MemaConst.IdentityResources.RoleScope,
                         },
 
                         RequirePkce = true,
@@ -180,18 +183,18 @@ namespace MEMA_Planning_Schedule
 
             services.AddAuthorization(options =>
             {
-                // options.AddPolicy(MemaConst.Policies.Mod, policy =>
-                // {
-                //     var is4Policy = options.GetPolicy(IdentityServerConstants.LocalApi.PolicyName);
-                //     policy.Combine(is4Policy);
-                //     policy.RequireClaim(MemaConst.Claims.Role, MemaConst.Roles.Mod);
-                // });
-                 options.AddPolicy(MemaConst.Policies.Mod, policy => policy
-                    .RequireAuthenticatedUser()
-                    .RequireClaim(MemaConst.Claims.Role,
-                        MemaConst.Roles.Mod,
-                        MemaConst.Roles.Mod)
-                );
+                options.AddPolicy(MemaConst.Policies.Mod, policy =>
+                {
+                    var is4Policy = options.GetPolicy(IdentityServerConstants.LocalApi.PolicyName);
+                    policy.Combine(is4Policy);
+                    policy.RequireClaim(MemaConst.Claims.Role, MemaConst.Roles.Mod);
+                });
+                //  options.AddPolicy(MemaConst.Policies.Mod, policy => policy
+                //     .RequireAuthenticatedUser()
+                //     .RequireClaim(MemaConst.Claims.Role,
+                //         MemaConst.Roles.Mod,
+                //         MemaConst.Roles.Mod)
+                // );
             });
         }
     }
@@ -203,10 +206,13 @@ namespace MEMA_Planning_Schedule
             public const string Mod = nameof(Mod);
             public const string All = nameof(All);
         }
-
+        public struct IdentityResources
+        {
+             public const string RoleScope = "role";
+        }
         public struct Claims
         {
-            public const string Role = nameof(Role);
+            public const string Role = "role";
         }
         public struct Roles
         {

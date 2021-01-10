@@ -25,8 +25,11 @@ namespace MEMA_Planning_Schedule.Controllers
 
         [HttpGet("test")]
         [Authorize(Policy =  IdentityServerConstants.LocalApi.PolicyName)]
-        // [Authorize]
         public string GetTest() => "TEST Worked";
+
+        [HttpGet("testmod")]
+        [Authorize(Policy =  MemaConst.Policies.Mod)]
+        public string ModAuth() => "TEST MOD Worked";
 
         [HttpGet("{workerId}/day")]
         // [Authorize]
