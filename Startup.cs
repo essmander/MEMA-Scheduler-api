@@ -133,7 +133,7 @@ namespace MEMA_Planning_Schedule
                         ClientId = "web-client",
                         AllowedGrantTypes = GrantTypes.Code,
 
-                        RedirectUris = new [] { "http://localhost:3000" },
+                        RedirectUris = new [] { "http://localhost:3000/oidc/sign-in-callback.html" },
                         PostLogoutRedirectUris = new [] { "http://localhost:3000" },
                         AllowedCorsOrigins = { "http://localhost:3000" },
 

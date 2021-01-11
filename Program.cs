@@ -27,6 +27,7 @@ namespace MEMA_Planning_Schedule
                  userMgr.CreateAsync(user, "password").GetAwaiter().GetResult();
 
                  var mod = new IdentityUser("mod");
+                 mod.Email = "fredriklg3@gmail.com";
                  userMgr.CreateAsync(mod, "password").GetAwaiter().GetResult();
                  userMgr.AddClaimAsync(mod, 
                     new Claim(MemaConst.Claims.Role,
