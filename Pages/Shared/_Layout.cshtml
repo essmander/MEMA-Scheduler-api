@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <tittle>@ViewData["Title"]</tittle>
+    <style>
+    * {
+        font-family: "Roboto", sans-serif !important;
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #212121;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        padding: 1.5rem;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0 1px 8px 1px #FAFAFA;
+    }
+
+    .title {
+        text-align: center;
+    }
+
+    .field {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: .5rem;
+    }
+
+    .field>input {
+        margin-bottom: .25rem;
+    }
+
+    .field>span {
+        font-size: 13px;
+        color: #E53935;
+    }
+</style>
+</head>
+
+<body>
+    @RenderBody()
+</body>
+
+</html>

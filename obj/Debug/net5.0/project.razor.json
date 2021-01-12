@@ -15603,6 +15603,11 @@
   "RootNamespace": "MEMA_Planning_Schedule",
   "Documents": [
     {
+      "FilePath": "c:\\Users\\fredr\\Prodjects\\MEMA\\MEMA-Planning-Schedule\\Pages\\Shared\\_Layout.cshtml",
+      "TargetPath": "Pages\\Shared\\_Layout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\fredr\\Prodjects\\MEMA\\MEMA-Planning-Schedule\\Pages\\Account\\Login.cshtml",
       "TargetPath": "Pages\\Account\\Login.cshtml",
       "FileKind": "mvc"
