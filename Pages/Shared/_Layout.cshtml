@@ -6,47 +6,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <tittle>@ViewData["Title"]</tittle>
     <style>
-    * {
-        font-family: "Roboto", sans-serif !important;
-    }
+        * {
+            font-family: "Roboto", sans-serif !important;
+        }
 
-    body {
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #212121;
-    }
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #212121;
+        }
 
-    form {
-        display: flex;
-        flex-direction: column;
-        padding: 1.5rem;
-        background: #fff;
-        border-radius: 5px;
-        box-shadow: 0 1px 8px 1px #FAFAFA;
-    }
+        form {
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 1px 8px 1px #FAFAFA;
+        }
 
-    .title {
-        text-align: center;
-    }
+        .title {
+            text-align: center;
+        }
 
-    .field {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: .5rem;
-    }
+        .field {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: .5rem;
+        }
 
-    .field>input {
-        margin-bottom: .25rem;
-    }
+        .field>label {
+            font-size: 14px;
+            font-weight: bold;
+        }
 
-    .field>span {
-        font-size: 13px;
-        color: #E53935;
-    }
-</style>
+        .field>input {
+            margin-bottom: .25rem;
+            width: 100%;
+            line-height: 20px;
+            padding: 8px 4px 8px;
+            max-width: 100%;
+            min-width: 0px;
+            border: 1px solid #212121;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .field>input:focus {
+            outline: none;
+            border: 1px solid #1976d2;
+        }
+
+        .field>span {
+            font-size: 13px;
+            color: #E53935;
+        }
+
+        .field>button {
+            background-color: none;
+            height: 36px;
+            padding: 0 16px;
+            background-color: transparent;
+            border-radius: 5px;
+            border: 1px solid #1976d2;
+        }
+
+        hr {
+            width: 100%;
+        } 
+    </style>
 </head>
 
 <body>
