@@ -31,21 +31,21 @@ namespace MEMA_Planning_Schedule.Controllers
         [Authorize(Policy =  MemaConst.Policies.Mod)]
         public string ModAuth() => "TEST MOD Worked";
 
-        [HttpGet("{workerId}/day")]
+        [HttpGet("{userId}/day")]
         // [Authorize]
-        public async Task<IActionResult> GetBookigsThisDay(int workerId) => Ok(await _bookingDataAccess.GetBookingsThisDay(workerId));
+        public async Task<IActionResult> GetBookigsThisDay(string userId) => Ok(await _bookingDataAccess.GetBookingsThisDay(userId));
 
-        [HttpGet("{workerId}/week")]
+        [HttpGet("{userId}/week")]
         // [Authorize]
-        public async Task<IActionResult> GetBookigsThisWeek(int workerId) => Ok(await _bookingDataAccess.GetBookingsThisWeek(workerId));
+        public async Task<IActionResult> GetBookigsThisWeek(string userId) => Ok(await _bookingDataAccess.GetBookingsThisWeek(userId));
        
-        [HttpGet("{workerId}/month")]
+        [HttpGet("{userId}/month")]
         // [Authorize]
-        public async Task<IActionResult> GetBookigsThisMonth(int workerId) => Ok(await _bookingDataAccess.GetBookingsThisMonth(workerId));
+        public async Task<IActionResult> GetBookigsThisMonth(string userId) => Ok(await _bookingDataAccess.GetBookingsThisMonth(userId));
 
         [HttpGet("{id}")]
         // [Authorize]
-        public async Task<IActionResult> GetAllBookingsByUserId(int id) => Ok(await _bookingDataAccess.GetBookingsByUserId(id));
+        public async Task<IActionResult> GetAllBookingsByUserId(string id) => Ok(await _bookingDataAccess.GetBookingsByUserId(id));
 
         [HttpDelete("{id}")]
         // [Authorize]

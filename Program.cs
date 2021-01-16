@@ -23,11 +23,11 @@ namespace MEMA_Planning_Schedule
                //  var identityContext = scope.ServiceProvider.GetRequiredService<ApiIdentityDbContext>();
                  var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-                 var user = new IdentityUser("test");
+                 var user = new IdentityUser("test"){Email = "test@test.com"};
                  userMgr.CreateAsync(user, "password").GetAwaiter().GetResult();
 
-                 var mod = new IdentityUser("mod");
-                 mod.Email = "fredriklg3@gmail.com";
+                 var mod = new IdentityUser("mod"){Email="mod@test.com"};
+                 //mod.Email = "fredriklg3@gmail.com";
                  userMgr.CreateAsync(mod, "password").GetAwaiter().GetResult();
                  userMgr.AddClaimAsync(mod, 
                     new Claim(MemaConst.Claims.Role,

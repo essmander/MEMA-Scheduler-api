@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Security.Claims;
+using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Models;
 using Microsoft.AspNetCore.Builder;
@@ -83,6 +84,8 @@ namespace MEMA_Planning_Schedule
 
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
                 {
+                    options.User.RequireUniqueEmail = true;
+
                     if (_env.IsDevelopment())
                     {
                         options.Password.RequireDigit = false;
@@ -121,7 +124,10 @@ namespace MEMA_Planning_Schedule
                 identetyServerBuilder.AddInMemoryApiScopes(new ApiScope[]
                 {
                     new ApiScope(IdentityServerConstants.LocalApi.ScopeName,
-                    new [] {MemaConst.Claims.Role}),
+                    new [] {
+                        MemaConst.Claims.Role,
+                        JwtClaimTypes.PreferredUserName,
+                        }),
 
                 });
 
@@ -207,6 +213,7 @@ namespace MEMA_Planning_Schedule
     {
         public struct Policies
         {
+            public const string User = IdentityServerConstants.LocalApi.PolicyName;
             public const string Mod = nameof(Mod);
             public const string All = nameof(All);
         }
