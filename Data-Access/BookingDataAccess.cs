@@ -105,15 +105,15 @@ namespace MEMA_Planning_Schedule
             return isSuccess;
         }
 
-        public async Task<int> CreateBooking(Booking booking)
-        {
+        public async Task<int> CreateBooking(Booking booking, string userId)
+        { 
             using var connection = new SqlConnection(_configuration.GetConnectionString("MEMA"));
             var identety = await connection.InsertAsync(booking);
             
             var userBooking = new UserBooking
             {
                 BookingId = booking.BookingId,
-                UserId = "test",
+                UserId = userId,
             };
 
             await connection.InsertAsync(userBooking);

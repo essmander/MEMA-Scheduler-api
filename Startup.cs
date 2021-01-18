@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Security.Claims;
 using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Models;
@@ -54,9 +52,6 @@ namespace MEMA_Planning_Schedule
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MEMA_Planning_Schedule v1"));
-
-
-
             }
 
             app.UseHttpsRedirection();
@@ -116,6 +111,7 @@ namespace MEMA_Planning_Schedule
                     new IdentityResources.OpenId(),
                     new IdentityResources.Profile(),
                     new IdentityResource(MemaConst.IdentityResources.RoleScope, new [] { MemaConst.Claims.Role }),
+                    new IdentityResources.Email(),
                 });
 
                 //identetyServerBuilder.AddInMemoryApiResources(Config.GetApiResources());
@@ -127,6 +123,7 @@ namespace MEMA_Planning_Schedule
                     new [] {
                         MemaConst.Claims.Role,
                         JwtClaimTypes.PreferredUserName,
+                        JwtClaimTypes.Email,
                         }),
 
                 });
@@ -138,7 +135,7 @@ namespace MEMA_Planning_Schedule
                     {
                         ClientId = "web-client",
                         AllowedGrantTypes = GrantTypes.Code,
-
+ 
                         RedirectUris = new [] 
                         { 
                             "http://localhost:3000/oidc/sign-in-callback.html",
@@ -151,6 +148,7 @@ namespace MEMA_Planning_Schedule
                         {
                             IdentityServerConstants.StandardScopes.OpenId,
                             IdentityServerConstants.StandardScopes.Profile,
+                            IdentityServerConstants.StandardScopes.Email,
                             IdentityServerConstants.LocalApi.ScopeName,
                             MemaConst.IdentityResources.RoleScope,
                         },
@@ -159,8 +157,6 @@ namespace MEMA_Planning_Schedule
                         AllowAccessTokensViaBrowser = true,
                         RequireConsent = false,
                         RequireClientSecret = false,
-
-
                     },
                     // new Client
                     // {

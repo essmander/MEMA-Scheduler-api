@@ -13,7 +13,7 @@ namespace MEMA_Planning_Schedule
         public Task<IEnumerable<Booking>> GetBookingsThisWeek(string userId);
         public Task<IEnumerable<Booking>> GetBookingsThisMonth(string userId);
         public Task<bool> DeleteBooking(int id);
-        public Task<int> CreateBooking(Booking booking);
+        public Task<int> CreateBooking(Booking booking, string userId);
         public Task<bool> UpdateBooking(Booking booking);
     }
 }

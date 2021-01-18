@@ -14,18 +14,16 @@ namespace MEMA_Planning_Schedule.Controllers
         [HttpGet("me")]
         public IActionResult GetMe()
         {
-            var userId = UserId;
-
-            if (string.IsNullOrEmpty(userId))
+            if (string.IsNullOrEmpty(UserId))
             {
                 return BadRequest();
             }
 
             var user = new User
             {
-                UserId = userId,
+                UserId = UserId,
                 Username = UserName,
-
+                Email = UserEmail
             };
 
             return Ok(user);

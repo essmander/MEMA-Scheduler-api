@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace MEMA_Planning_Schedule.Controllers
 {
-    [ApiController]
     [Route("api/bookings")]
-    public class SchedulerController : ControllerBase
+    public class SchedulerController : ApiController
     {
 
         //private readonly IConfiguration _configuration;
@@ -31,17 +30,17 @@ namespace MEMA_Planning_Schedule.Controllers
         [Authorize(Policy =  MemaConst.Policies.Mod)]
         public string ModAuth() => "TEST MOD Worked";
 
-        [HttpGet("{userId}/day")]
+        [HttpGet("day")]
         // [Authorize]
-        public async Task<IActionResult> GetBookigsThisDay(string userId) => Ok(await _bookingDataAccess.GetBookingsThisDay(userId));
+        public async Task<IActionResult> GetBookigsThisDay() => Ok(await _bookingDataAccess.GetBookingsThisDay(UserId));
 
-        [HttpGet("{userId}/week")]
+        [HttpGet("week")]
         // [Authorize]
-        public async Task<IActionResult> GetBookigsThisWeek(string userId) => Ok(await _bookingDataAccess.GetBookingsThisWeek(userId));
+        public async Task<IActionResult> GetBookigsThisWeek() => Ok(await _bookingDataAccess.GetBookingsThisWeek(UserId));
        
-        [HttpGet("{userId}/month")]
+        [HttpGet("month")]
         // [Authorize]
-        public async Task<IActionResult> GetBookigsThisMonth(string userId) => Ok(await _bookingDataAccess.GetBookingsThisMonth(userId));
+        public async Task<IActionResult> GetBookigsThisMonth() => Ok(await _bookingDataAccess.GetBookingsThisMonth(UserId));
 
         [HttpGet("{id}")]
         // [Authorize]
@@ -56,12 +55,8 @@ namespace MEMA_Planning_Schedule.Controllers
         }
 
         [HttpPost]
-        //[Authorize]
-        public async Task<IActionResult> Create([FromBody] Booking booking)
-        {
-            await _bookingDataAccess.CreateBooking(booking);
-            return Ok();
-        }
+        [Authorize(Policy =  IdentityServerConstants.LocalApi.PolicyName)]
+        public async Task<IActionResult> Create([FromBody] Booking booking) => Ok(await _bookingDataAccess.CreateBooking(booking, UserEmail)); //Temp fix 
 
         [HttpPatch]
         // [Authorize]

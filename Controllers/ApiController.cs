@@ -9,6 +9,7 @@ namespace MEMA_Planning_Schedule.Controllers
     {
         public string UserId => GetClaim(JwtClaimTypes.Subject);
         public string UserName => GetClaim(JwtClaimTypes.PreferredUserName);
+        public string UserEmail => GetClaim(JwtClaimTypes.Email);
         private string GetClaim(string claimType) => User.Claims
             .FirstOrDefault(x => x.Type.Equals(claimType))?.Value;
 
