@@ -5,12 +5,11 @@ namespace MEMA_Planning_Schedule.Models
 {
     public record Booking
     {
-        // [Key]
-        [ExplicitKey]
+        [Key]
         public int BookingId { get; init; }
-        public string ProjektName { get; init; }
+        public string ProjectName { get; init; }
         public string Customer { get; init; }
         public DateTime Start { get; init; }
-        public DateTime Finish { get; init; }
+        public DateTime Finished { get; }
     }
 }
