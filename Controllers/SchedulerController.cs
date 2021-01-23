@@ -20,6 +20,7 @@ namespace MEMA_Planning_Schedule.Controllers
 
         [HttpGet]
         // [Authorize]
+        // [Authorize(Policy =  IdentityServerConstants.LocalApi.PolicyName)]
         public async Task<IActionResult> Get() => Ok(await _bookingDataAccess.GetAllBookings());
 
         [HttpGet("test")]
@@ -59,6 +60,7 @@ namespace MEMA_Planning_Schedule.Controllers
         public async Task<IActionResult> Create([FromBody] Booking booking) => Ok(await _bookingDataAccess.CreateBooking(booking, UserEmail)); //Temp fix 
 
         [HttpPatch]
+        [Authorize(Policy =  IdentityServerConstants.LocalApi.PolicyName)]
         // [Authorize]
         public async Task<IActionResult> Update([FromBody] Booking booking) => Ok(await _bookingDataAccess.UpdateBooking(booking));
 

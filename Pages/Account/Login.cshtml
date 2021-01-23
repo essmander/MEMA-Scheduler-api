@@ -2,11 +2,12 @@
 @model MEMA_Planning_Schedule.Pages.Account.Login
 
 @{
-    ViewData["Title"] = "Login";
+    @* ViewData["Title"] = "Login"; *@
     Layout = "_Layout";
 }
 
 <form method="post">
+    @* <img src="\loggaCopy.png" alt="MEMA"/> *@
     <h3 class="title">Login</h3>
     <input type="hidden" asp-for="Form.ReturnUrl" value="@Model.Form.ReturnUrl">
     <div class="field">
