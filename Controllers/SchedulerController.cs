@@ -20,25 +20,25 @@ namespace MEMA_Planning_Schedule.Controllers
 
         [HttpGet]
         // [Authorize]
-        // [Authorize(Policy =  IdentityServerConstants.LocalApi.PolicyName)]
+        [Authorize(Policy =  IdentityServerConstants.LocalApi.PolicyName)]
         public async Task<IActionResult> Get() => Ok(await _bookingDataAccess.GetAllBookings());
 
         [HttpGet("test")]
-        [Authorize(Policy =  IdentityServerConstants.LocalApi.PolicyName)]
+        [Authorize(Policy = IdentityServerConstants.LocalApi.PolicyName)]
         public string GetTest() => "TEST Worked";
 
         [HttpGet("testmod")]
-        [Authorize(Policy =  MemaConst.Policies.Mod)]
+        [Authorize(Policy = MemaConst.Policies.Mod)]
         public string ModAuth() => "TEST MOD Worked";
 
         [HttpGet("day")]
-        // [Authorize]
+        [Authorize(Policy = IdentityServerConstants.LocalApi.PolicyName)]
         public async Task<IActionResult> GetBookigsThisDay() => Ok(await _bookingDataAccess.GetBookingsThisDay(UserId));
 
         [HttpGet("week")]
         // [Authorize]
         public async Task<IActionResult> GetBookigsThisWeek() => Ok(await _bookingDataAccess.GetBookingsThisWeek(UserId));
-       
+
         [HttpGet("month")]
         // [Authorize]
         public async Task<IActionResult> GetBookigsThisMonth() => Ok(await _bookingDataAccess.GetBookingsThisMonth(UserId));
@@ -48,6 +48,7 @@ namespace MEMA_Planning_Schedule.Controllers
         public async Task<IActionResult> GetAllBookingsByUserId(string id) => Ok(await _bookingDataAccess.GetBookingsByUserId(id));
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = IdentityServerConstants.LocalApi.PolicyName)]
         // [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
@@ -56,11 +57,11 @@ namespace MEMA_Planning_Schedule.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy =  IdentityServerConstants.LocalApi.PolicyName)]
+        [Authorize(Policy = IdentityServerConstants.LocalApi.PolicyName)]
         public async Task<IActionResult> Create([FromBody] Booking booking) => Ok(await _bookingDataAccess.CreateBooking(booking, UserEmail)); //Temp fix 
 
         [HttpPatch]
-        [Authorize(Policy =  IdentityServerConstants.LocalApi.PolicyName)]
+        [Authorize(Policy = IdentityServerConstants.LocalApi.PolicyName)]
         // [Authorize]
         public async Task<IActionResult> Update([FromBody] Booking booking) => Ok(await _bookingDataAccess.UpdateBooking(booking));
 

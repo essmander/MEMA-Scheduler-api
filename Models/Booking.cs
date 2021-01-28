@@ -11,5 +11,6 @@ namespace MEMA_Planning_Schedule.Models
         public string Customer { get; init; }
         public DateTime Start { get; init; }
         public DateTime Finish { get; init; }
+        public bool IsFinished { get; set; }
     }
 }
